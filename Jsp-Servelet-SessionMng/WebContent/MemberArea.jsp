@@ -10,23 +10,12 @@
 	<% 
 		String UserName = null;
 		String SessionId = null;
-		Cookie[] cookies = request.getCookies();
-		if(cookies != null){
-			for(Cookie cookie: cookies){
-				if(cookie.getName().equals("UserName")){
-					UserName = cookie.getValue();
-				}
-				if(cookie.getName().equals("JSESSIONID")){
-					SessionId = cookie.getValue();
-				}
-			}
-		}
-		
-		//MUST READ - doing && operation here is not right, since we can have a new session id even when username is null. rather use || to be safe, even 
-		//if new session id gets created, username will be numm so will get redirected.
-		if(UserName == null || SessionId == null){
-			String Path = request.getContextPath();
+		if(request.getSession().getAttribute("UserName") == null){
 			response.sendRedirect("Login.jsp");
+		}
+		else{
+			UserName = request.getSession().getAttribute("UserName").toString();
+			SessionId = request.getSession().getId();
 		}
 	%>
 	Welcome Member!!<br>

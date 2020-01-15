@@ -52,8 +52,7 @@ public class PublicController extends HttpServlet {
 			HttpSession NewSession = request.getSession(true);
 			NewSession.setMaxInactiveInterval(300);
 			//request.getRequestDispatcher("/PrivateController?action=MemberArea").forward(request, response);
-			Cookie CUserName = new Cookie("UserName", UserName);
-			response.addCookie(CUserName);
+			NewSession.setAttribute("UserName", UserName);
 			response.sendRedirect("MemberArea.jsp");
 		}
 		else {

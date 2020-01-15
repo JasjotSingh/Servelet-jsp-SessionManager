@@ -33,14 +33,6 @@ public class PrivateController extends HttpServlet {
 		switch(action) {
 		case "Destroy":
 			request.getSession().invalidate();
-			Cookie[] cookies = request.getCookies();
-			for(Cookie cookie: cookies) {
-				if(cookie.getName().equals("UserName")) {
-					cookie.setValue(null);
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-			}
 			response.sendRedirect("Login.jsp");
 			break;
 		}
