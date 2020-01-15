@@ -32,5 +32,9 @@
 	Welcome Member!!<br>
 	<%=UserName %><br>
 	<%=SessionId %><br>
+	<form action="<%=request.getContextPath()%>/PrivateController" method="get">
+		<input type="hidden" name="action" value="Destroy">
+		<input type="submit" value ="LogOut">
+	</form>
 </body>
 </html>

@@ -3,6 +3,7 @@ package org.test.PrivateServelet;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,22 @@ public class PrivateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String action = request.getParameter("action");
+		switch(action) {
+		case "Destroy":
+			request.getSession().invalidate();
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cookie: cookies) {
+				if(cookie.getName().equals("UserName")) {
+					cookie.setValue(null);
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+			response.sendRedirect("Login.jsp");
+			break;
+		}
 	}
 
 	/**
