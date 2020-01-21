@@ -33,7 +33,13 @@ public class PrivateController extends HttpServlet {
 		switch(action) {
 		case "Destroy":
 			request.getSession().invalidate();
-			response.sendRedirect("Login.jsp");
+			response.sendRedirect(request.getContextPath()+"/PublicController?action=Login");
+			break;
+		case "MemberArea":
+			request.getRequestDispatcher("MemberArea.jsp").forward(request, response);
+			break;
+		case "Profile":
+			request.getRequestDispatcher("Profile.jsp").forward(request, response);
 			break;
 		}
 	}

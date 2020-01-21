@@ -11,7 +11,7 @@
 		String UserName = null;
 		String SessionId = null;
 		if(request.getSession().getAttribute("UserName") == null){
-			response.sendRedirect("Login.jsp");
+			response.sendRedirect(request.getContextPath()+"/PublicController?action=Login");
 		}
 		else{
 			UserName = request.getSession().getAttribute("UserName").toString();
@@ -21,6 +21,7 @@
 	Welcome Member!!<br>
 	<%=UserName %><br>
 	<%=SessionId %><br>
+	<a href="<%=request.getContextPath()%>/PrivateController?action=Profile">Profile</a>
 	<form action="<%=request.getContextPath()%>/PrivateController" method="get">
 		<input type="hidden" name="action" value="Destroy">
 		<input type="submit" value ="LogOut">

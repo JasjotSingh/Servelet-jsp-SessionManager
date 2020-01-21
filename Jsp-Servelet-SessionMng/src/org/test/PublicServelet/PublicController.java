@@ -43,8 +43,18 @@ public class PublicController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at:").append(request.getContextPath());
+		String action = request.getParameter("action");
+		switch(action) {
+			case "LoginSubmit":
+				auth(request, response);
+				break;
+			default:
+				break;
+		}
+		
+	}
+	
+	private void auth(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		String UserName = request.getParameter("username");
 		String PassWord = request.getParameter("password");
 		if(PassWord.equals("pass") && UserName.equals("Jas")) {
@@ -53,11 +63,11 @@ public class PublicController extends HttpServlet {
 			NewSession.setMaxInactiveInterval(300);
 			//request.getRequestDispatcher("/PrivateController?action=MemberArea").forward(request, response);
 			NewSession.setAttribute("UserName", UserName);
-			response.sendRedirect("MemberArea.jsp");
+			response.sendRedirect(request.getContextPath()+"/PrivateController?action=MemberArea");
 		}
 		else {
 			//request.getRequestDispatcher("/PublicController?action=Login").forward(request, response);
-			response.sendRedirect("Login.jsp");
+			response.sendRedirect(request.getContextPath()+"/PublicController?action=Login");
 		}
 	}
 
